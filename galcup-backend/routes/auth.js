@@ -3,13 +3,13 @@ const router = express.Router();
 const authController = require('../controllers/authController');
 const authMiddleware = require('../middleware/auth');
 
-// È¸¿ø°¡ÀÔ ¶ó¿ìÆ®
+// íšŒì›ê°€ì… ë¼ìš°íŠ¸
 router.post('/register', authController.register);
 
-// ·Î±×ÀÎ ¶ó¿ìÆ®
+// ë¡œê·¸ì¸ ë¼ìš°íŠ¸
 router.post('/login', authController.login);
 
-// ÇöÀç »ç¿ëÀÚ Á¤º¸ Á¶È¸ ¶ó¿ìÆ® (ÀÎÁõ ÇÊ¿ä)
+// í˜„ì¬ ì‚¬ìš©ì ì •ë³´ ì¡°íšŒ ë¼ìš°íŠ¸ (ì¸ì¦ í•„ìš”)
 router.get('/me', authMiddleware, authController.getCurrentUser);
 
 module.exports = router;
