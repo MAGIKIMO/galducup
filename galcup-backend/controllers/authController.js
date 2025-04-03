@@ -1,31 +1,31 @@
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 
-// È¸¿ø°¡ÀÔ ÄÁÆ®·Ñ·¯
+// íšŒì›ê°€ì… ì»¨íŠ¸ë¡¤ëŸ¬
 exports.register = async (req, res) => {
   try {
     const { username, email, password } = req.body;
     
-    // ÇÊ¼ö ÇÊµå °ËÁõ
+    // í•„ìˆ˜ í•„ë“œ ê²€ì¦
     if (!username || !email || !password) {
-      return res.status(400).json({ message: '¸ğµç ÇÊµå¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.' });
+      return res.status(400).json({ message: 'ëª¨ë“  í•„ë“œë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.' });
     }
     
-    // ÀÌ¸ŞÀÏ Çü½Ä °ËÁõ
+    // ì´ë©”ì¼ í˜•ì‹ ê²€ì¦
     const emailRegex = /\S+@\S+\.\S+/;
     if (!emailRegex.test(email)) {
-      return res.status(400).json({ message: 'À¯È¿ÇÑ ÀÌ¸ŞÀÏ ÁÖ¼Ò¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.' });
+      return res.status(400).json({ message: 'ìœ íš¨í•œ ì´ë©”ì¼ ì£¼ì†Œë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.' });
     }
     
-    // ºñ¹Ğ¹øÈ£ ±æÀÌ °ËÁõ
+    // ë¹„ë°€ë²ˆí˜¸ ê¸¸ì´ ê²€ì¦
     if (password.length < 6) {
-      return res.status(400).json({ message: 'ºñ¹Ğ¹øÈ£´Â ÃÖ¼Ò 6ÀÚ ÀÌ»óÀÌ¾î¾ß ÇÕ´Ï´Ù.' });
+      return res.status(400).json({ message: 'ë¹„ë°€ë²ˆí˜¸ëŠ” ìµœì†Œ 6ì ì´ìƒì´ì–´ì•¼ í•©ë‹ˆë‹¤.' });
     }
     
-    // »ç¿ëÀÚ µî·Ï
+    // ì‚¬ìš©ì ë“±ë¡
     const user = await User.register(username, email, password);
     
-    // ÅäÅ« »ı¼º
+    // í† í° ìƒì„±
     const token = jwt.sign(
       { id: user.id, email: user.email },
       process.env.JWT_SECRET || 'your_jwt_secret',
@@ -33,7 +33,7 @@ exports.register = async (req, res) => {
     );
     
     res.status(201).json({
-      message: 'È¸¿ø°¡ÀÔÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù.',
+      message: 'íšŒì›ê°€ì…ì´ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.',
       token,
       user: {
         id: user.id,
@@ -43,33 +43,33 @@ exports.register = async (req, res) => {
     });
   } catch (error) {
     console.error('Registration error:', error);
-    res.status(500).json({ message: error.message || 'È¸¿ø°¡ÀÔ Ã³¸® Áß ¿À·ù°¡ ¹ß»ıÇß½À´Ï´Ù.' });
+    res.status(500).json({ message: error.message || 'íšŒì›ê°€ì… ì²˜ë¦¬ ì¤‘ ì˜¤ë¥˜ê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤.' });
   }
 };
 
-// ·Î±×ÀÎ ÄÁÆ®·Ñ·¯
+// ë¡œê·¸ì¸ ì»¨íŠ¸ë¡¤ëŸ¬
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
     
-    // ÇÊ¼ö ÇÊµå °ËÁõ
+    // í•„ìˆ˜ í•„ë“œ ê²€ì¦
     if (!email || !password) {
-      return res.status(400).json({ message: 'ÀÌ¸ŞÀÏ°ú ºñ¹Ğ¹øÈ£¸¦ ¸ğµÎ ÀÔ·ÂÇØÁÖ¼¼¿ä.' });
+      return res.status(400).json({ message: 'ì´ë©”ì¼ê³¼ ë¹„ë°€ë²ˆí˜¸ë¥¼ ëª¨ë‘ ì…ë ¥í•´ì£¼ì„¸ìš”.' });
     }
     
-    // ÀÌ¸ŞÀÏ·Î »ç¿ëÀÚ Ã£±â
+    // ì´ë©”ì¼ë¡œ ì‚¬ìš©ì ì°¾ê¸°
     const user = await User.findByEmail(email);
     if (!user) {
-      return res.status(401).json({ message: 'ÀÌ¸ŞÀÏ ¶Ç´Â ºñ¹Ğ¹øÈ£°¡ ¿Ã¹Ù¸£Áö ¾Ê½À´Ï´Ù.' });
+      return res.status(401).json({ message: 'ì´ë©”ì¼ ë˜ëŠ” ë¹„ë°€ë²ˆí˜¸ê°€ ì˜¬ë°”ë¥´ì§€ ì•ŠìŠµë‹ˆë‹¤.' });
     }
     
-    // ºñ¹Ğ¹øÈ£ È®ÀÎ
+    // ë¹„ë°€ë²ˆí˜¸ í™•ì¸
     const isMatch = await User.comparePassword(password, user.password);
     if (!isMatch) {
-      return res.status(401).json({ message: 'ÀÌ¸ŞÀÏ ¶Ç´Â ºñ¹Ğ¹øÈ£°¡ ¿Ã¹Ù¸£Áö ¾Ê½À´Ï´Ù.' });
+      return res.status(401).json({ message: 'ì´ë©”ì¼ ë˜ëŠ” ë¹„ë°€ë²ˆí˜¸ê°€ ì˜¬ë°”ë¥´ì§€ ì•ŠìŠµë‹ˆë‹¤.' });
     }
     
-    // ÅäÅ« »ı¼º
+    // í† í° ìƒì„±
     const token = jwt.sign(
       { id: user.id, email: user.email },
       process.env.JWT_SECRET || 'your_jwt_secret',
@@ -77,7 +77,7 @@ exports.login = async (req, res) => {
     );
     
     res.status(200).json({
-      message: '·Î±×ÀÎÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù.',
+      message: 'ë¡œê·¸ì¸ì´ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.',
       token,
       user: {
         id: user.id,
@@ -87,21 +87,21 @@ exports.login = async (req, res) => {
     });
   } catch (error) {
     console.error('Login error:', error);
-    res.status(500).json({ message: '·Î±×ÀÎ Ã³¸® Áß ¿À·ù°¡ ¹ß»ıÇß½À´Ï´Ù.' });
+    res.status(500).json({ message: 'ë¡œê·¸ì¸ ì²˜ë¦¬ ì¤‘ ì˜¤ë¥˜ê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤.' });
   }
 };
 
-// ÇöÀç »ç¿ëÀÚ Á¤º¸ Á¶È¸
+// í˜„ì¬ ì‚¬ìš©ì ì •ë³´ ì¡°íšŒ
 exports.getCurrentUser = async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
     if (!user) {
-      return res.status(404).json({ message: '»ç¿ëÀÚ¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù.' });
+      return res.status(404).json({ message: 'ì‚¬ìš©ìë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.' });
     }
     
     res.status(200).json({ user });
   } catch (error) {
     console.error('Get current user error:', error);
-    res.status(500).json({ message: '»ç¿ëÀÚ Á¤º¸ Á¶È¸ Áß ¿À·ù°¡ ¹ß»ıÇß½À´Ï´Ù.' });
+    res.status(500).json({ message: 'ì‚¬ìš©ì ì •ë³´ ì¡°íšŒ ì¤‘ ì˜¤ë¥˜ê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤.' });
   }
 };

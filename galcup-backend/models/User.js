@@ -2,13 +2,13 @@ const { pool } = require('../config/db');
 const bcrypt = require('bcrypt');
 
 class User {
-  // »ç¿ëÀÚ µî·Ï (È¸¿ø°¡ÀÔ)
+  // ì‚¬ìš©ì ë“±ë¡ (íšŒì›ê°€ì…)
   static async register(username, email, password) {
     try {
-      // ºñ¹Ğ¹øÈ£ ÇØ½ÃÈ­ (10 ¶ó¿îµå)
+      // ë¹„ë°€ë²ˆí˜¸ í•´ì‹œí™” (10 ë¼ìš´ë“œ)
       const hashedPassword = await bcrypt.hash(password, 10);
       
-      // »ç¿ëÀÚ µ¥ÀÌÅÍº£ÀÌ½º¿¡ ÀúÀå
+      // ì‚¬ìš©ì ë°ì´í„°ë² ì´ìŠ¤ì— ì €ì¥
       const [result] = await pool.execute(
         'INSERT INTO users (username, email, password) VALUES (?, ?, ?)',
         [username, email, hashedPassword]
@@ -20,15 +20,15 @@ class User {
         email
       };
     } catch (error) {
-      // Áßº¹ ÀÌ¸ŞÀÏ ¿À·ù È®ÀÎ
+      // ì¤‘ë³µ ì´ë©”ì¼ ì˜¤ë¥˜ í™•ì¸
       if (error.code === 'ER_DUP_ENTRY') {
-        throw new Error('ÀÌ¹Ì µî·ÏµÈ ÀÌ¸ŞÀÏÀÔ´Ï´Ù.');
+        throw new Error('ì´ë¯¸ ë“±ë¡ëœ ì´ë©”ì¼ì…ë‹ˆë‹¤.');
       }
       throw error;
     }
   }
 
-  // ÀÌ¸ŞÀÏ·Î »ç¿ëÀÚ Ã£±â
+  // ì´ë©”ì¼ë¡œ ì‚¬ìš©ì ì°¾ê¸°
   static async findByEmail(email) {
     const [rows] = await pool.execute(
       'SELECT * FROM users WHERE email = ?',
@@ -37,7 +37,7 @@ class User {
     return rows[0];
   }
 
-  // »ç¿ëÀÚ ID·Î »ç¿ëÀÚ Ã£±â
+  // ì‚¬ìš©ì IDë¡œ ì‚¬ìš©ì ì°¾ê¸°
   static async findById(id) {
     const [rows] = await pool.execute(
       'SELECT id, username, email, created_at FROM users WHERE id = ?',
@@ -46,7 +46,7 @@ class User {
     return rows[0];
   }
 
-  // ºñ¹Ğ¹øÈ£ È®ÀÎ
+  // ë¹„ë°€ë²ˆí˜¸ í™•ì¸
   static async comparePassword(password, hashedPassword) {
     return bcrypt.compare(password, hashedPassword);
   }

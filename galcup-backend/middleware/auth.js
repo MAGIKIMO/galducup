@@ -1,24 +1,24 @@
 const jwt = require('jsonwebtoken');
 
-// JWT ÀÎÁõ ¹Ìµé¿ş¾î
+// JWT ì¸ì¦ ë¯¸ë“¤ì›¨ì–´
 module.exports = (req, res, next) => {
-  // Çì´õ¿¡¼­ ÅäÅ« °¡Á®¿À±â
+  // í—¤ë”ì—ì„œ í† í° ê°€ì ¸ì˜¤ê¸°
   const token = req.header('x-auth-token');
   
-  // ÅäÅ«ÀÌ ¾ø´Â °æ¿ì
+  // í† í°ì´ ì—†ëŠ” ê²½ìš°
   if (!token) {
-    return res.status(401).json({ message: 'ÀÎÁõ ÅäÅ«ÀÌ ¾ø½À´Ï´Ù. ·Î±×ÀÎÀÌ ÇÊ¿äÇÕ´Ï´Ù.' });
+    return res.status(401).json({ message: 'ì¸ì¦ í† í°ì´ ì—†ìŠµë‹ˆë‹¤. ë¡œê·¸ì¸ì´ í•„ìš”í•©ë‹ˆë‹¤.' });
   }
   
   try {
-    // ÅäÅ« °ËÁõ
+    // í† í° ê²€ì¦
     const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your_jwt_secret');
     
-    // ¿äÃ» °´Ã¼¿¡ »ç¿ëÀÚ Á¤º¸ Ãß°¡
+    // ìš”ì²­ ê°ì²´ì— ì‚¬ìš©ì ì •ë³´ ì¶”ê°€
     req.user = decoded;
     next();
   } catch (error) {
     console.error('Token verification error:', error);
-    res.status(401).json({ message: 'À¯È¿ÇÏÁö ¾ÊÀº ÅäÅ«ÀÔ´Ï´Ù.' });
+    res.status(401).json({ message: 'ìœ íš¨í•˜ì§€ ì•Šì€ í† í°ì…ë‹ˆë‹¤.' });
   }
 };
