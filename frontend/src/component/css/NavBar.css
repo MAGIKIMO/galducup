@@ -1,0 +1,109 @@
+/* src/component/css/NavBar.css */
+
+.navbar {
+    width: 100%;
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  .nav-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    width: 100%;
+  }
+  
+  .nav-item {
+    flex-grow: 1;
+    text-align: center;
+    padding: 0;
+  }
+  
+  .nav-item a {
+    display: block;
+    padding: 15px 20px;
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .nav-item a:hover {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  /* 인증 관련 스타일 */
+  .auth-item {
+    background-color: #f0f0f0;
+    max-width: 180px;
+    margin-left: auto;
+  }
+  
+  .auth-item a {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .auth-item a:hover {
+    background-color: #0056b3;
+  }
+  
+  .user-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 15px;
+    height: 100%;
+  }
+  
+  .username {
+    font-weight: 500;
+    margin-right: 10px;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 80px;
+  }
+  
+  .logout-button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.3s;
+  }
+  
+  .logout-button:hover {
+    background-color: #c82333;
+  }
+  
+  /* 반응형 디자인 */
+  @media (max-width: 768px) {
+    .nav-list {
+      flex-direction: column;
+    }
+    
+    .auth-item {
+      max-width: 100%;
+      order: -1;
+      margin-left: 0;
+    }
+    
+    .user-menu {
+      justify-content: space-between;
+    }
+    
+    .username {
+      max-width: 150px;
+    }
+  }
