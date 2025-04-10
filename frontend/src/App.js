@@ -9,6 +9,7 @@ import BestGalcup from './component/bestGalcup';
 import NowGalcup from './component/nowGalcups';
 import Login from './component/Login';
 import Register from './component/Register';
+import PlayGalcup from './component/PlayGalcup';
 import { authAPI } from './services/api';
 
 // 인증 컨텍스트 생성
@@ -82,6 +83,7 @@ function App() {
             <Route path="/nowGalcup" element={<NowGalcup />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/play/:id" element={<PlayGalcup />} />
           </Routes>
         </div>
       </Router>

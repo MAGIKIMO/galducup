@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 const { testConnection } = require('./config/db');
 require('dotenv').config();
 
@@ -10,11 +11,15 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// 정적 파일 제공 설정
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 // 데이터베이스 연결 테스트
 testConnection();
 
 // 라우트 설정
 app.use('/api/auth', require('./routes/auth'));
+app.use('/api/galcups', require('./routes/galcup'));
 
 // 기본 라우트
 app.get('/', (req, res) => {

@@ -1,0 +1,215 @@
+/* src/component/css/PlayGalcup.css */
+
+.play-galcup-container {
+    width: 90%;
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 20px;
+  }
+  
+  .galcup-title {
+    font-size: 28px;
+    margin-bottom: 25px;
+    color: #333;
+    text-align: center;
+  }
+  
+  .loading-container,
+  .error-container {
+    text-align: center;
+    padding: 40px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    margin: 20px 0;
+  }
+  
+  .error-container {
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+  
+  .vs-container {
+    position: relative;
+    margin: 30px 0;
+  }
+  
+  .vs-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(220, 53, 69, 0.9);
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 24px;
+    z-index: 10;
+    border: 3px solid white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .images-container {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .image-option {
+    flex: 1;
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .image-option:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .image-option img {
+    display: block;
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+  }
+  
+  .image-option:hover::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 123, 255, 0.2);
+  }
+  
+  .instruction {
+    text-align: center;
+    margin-top: 20px;
+    color: #555;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  
+  .result-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    margin: 30px 0;
+  }
+  
+  .result-title {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 24px;
+  }
+  
+  .result-image {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 25px;
+  }
+  
+  .result-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  
+  .result-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+  }
+  
+  .play-again-button,
+  .back-button {
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s;
+  }
+  
+  .play-again-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+  }
+  
+  .play-again-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .back-button {
+    background-color: #6c757d;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .back-button:hover {
+    background-color: #5a6268;
+  }
+  
+  .galcup-info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    color: #666;
+    font-size: 14px;
+  }
+  
+  /* 반응형 디자인 */
+  @media (max-width: 768px) {
+    .images-container {
+      flex-direction: column;
+    }
+    
+    .vs-text {
+      width: 50px;
+      height: 50px;
+      font-size: 20px;
+      top: 50%;
+      left: 20px;
+      transform: translateY(-50%);
+    }
+    
+    .image-option img {
+      height: 300px;
+    }
+    
+    .result-actions {
+      flex-direction: column;
+      width: 100%;
+    }
+    
+    .play-again-button,
+    .back-button {
+      width: 100%;
+      text-align: center;
+    }
+    
+    .galcup-info {
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
